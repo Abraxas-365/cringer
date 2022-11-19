@@ -1,9 +1,9 @@
 package msg
 
 import (
-	"strings"
 	"time"
 
+	"github.com/Abraxas-365/cringer/internal"
 	"github.com/twilio/twilio-go"
 	api "github.com/twilio/twilio-go/rest/api/v2010"
 )
@@ -20,7 +20,7 @@ func (m *Msg) SendMessage(duration time.Time) error {
 
 	client := twilio.NewRestClient()
 	params := &api.CreateMessageParams{}
-	params.SetBody(m.Msg + " " + "Duration" + shortDur(elapsed))
+	params.SetBody(m.Msg + " " + "Duration: " + internal.ShortDur(elapsed))
 	params.SetFrom(m.From)
 	for _, number := range m.To {
 		params.SetTo(number)
@@ -30,15 +30,4 @@ func (m *Msg) SendMessage(duration time.Time) error {
 	}
 
 	return nil
-}
-
-func shortDur(d time.Duration) string {
-	s := d.String()
-	if strings.HasSuffix(s, "m0s") {
-		s = s[:len(s)-2]
-	}
-	if strings.HasSuffix(s, "h0m") {
-		s = s[:len(s)-2]
-	}
-	return s
 }

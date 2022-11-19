@@ -24,7 +24,7 @@ func (m *Mail) SendMail(duration time.Time) error {
 	smtpPort := "587"
 
 	// Message.
-	message := []byte(m.Msg + " " + "Duration: " + internal.ShortDur(elapsed))
+	message := []byte(m.Msg + " Finished in " + internal.ShortDur(elapsed))
 
 	// Authentication.
 	auth := smtp.PlainAuth("", m.From, m.Password, smtpHost)

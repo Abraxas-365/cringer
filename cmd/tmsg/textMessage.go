@@ -1,7 +1,9 @@
 package tmsg
 
 import (
+	"bytes"
 	"fmt"
+	"io"
 	"log"
 	"os"
 	"os/exec"
@@ -16,7 +18,7 @@ var from string
 var command string
 var to []string
 
-var TmsgCmd = &cobra.Command{
+var TwilioCmd = &cobra.Command{
 	Use:   "twilio",
 	Short: "notify threw text message",
 	Long:  ``,
@@ -34,27 +36,33 @@ var TmsgCmd = &cobra.Command{
 		//slplit the command and run it
 		commandArgs := strings.Split(command, " ")
 		c := exec.Command(commandArgs[0], commandArgs[1:]...)
-		stdout, err := c.Output()
-		if err != nil {
-			fmt.Println(err.Error())
-			twilio.Msg = "ERROR: " + err.Error()
+
+		var stdBuffer bytes.Buffer
+		mw := io.MultiWriter(os.Stdout, &stdBuffer)
+		c.Stdout = mw
+		c.Stderr = mw
+
+		// Execute the command
+		if err := c.Run(); err != nil {
+			twilio.Msg = "Subject: Error \n" + err.Error()
 		} else {
-			twilio.Msg = "Exito:" + string(stdout)
+			twilio.Msg = "Subject: Success \n" + stdBuffer.String()
 		}
+
+		log.Println(stdBuffer.String())
 
 		//send to my phone when finish
 		if err := twilio.SendMessage(start); err != nil {
 			log.Fatal(err)
-			os.Exit(1)
 		}
 
 		//print result of the command
-		fmt.Println(string(stdout))
+		fmt.Println(string(twilio.Msg))
 	},
 }
 
 func init() {
-	TmsgCmd.Flags().StringVarP(&from, "from", "f", "+13023039351", "The phone from")
-	TmsgCmd.Flags().StringVarP(&command, "command", "c", "", "Command to run")
-	TmsgCmd.Flags().StringArrayVarP(&to, "to", "t", []string{"+<number>"}, "Who to notify")
+	TwilioCmd.Flags().StringVarP(&from, "from", "f", "+13023039351", "The phone from")
+	TwilioCmd.Flags().StringVarP(&command, "command", "c", "", "Command to run")
+	TwilioCmd.Flags().StringArrayVarP(&to, "to", "t", []string{"+<number>"}, "Who to notify")
 }

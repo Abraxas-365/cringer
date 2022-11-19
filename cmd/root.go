@@ -3,6 +3,7 @@ package cmd
 import (
 	"os"
 
+	"github.com/Abraxas-365/cringer/cmd/tmail"
 	"github.com/Abraxas-365/cringer/cmd/tmsg"
 	"github.com/spf13/cobra"
 )
@@ -26,7 +27,8 @@ func Execute() {
 }
 
 func addSubCommandPalletes() {
-	rootCmd.AddCommand(tmsg.TmsgCmd)
+	rootCmd.AddCommand(tmsg.TwilioCmd)
+	rootCmd.AddCommand(tmail.EmailCmd)
 }
 func init() {
 	addSubCommandPalletes()

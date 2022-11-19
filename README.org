@@ -3,20 +3,48 @@
 
 * How to use it
 
-** Go to twilio and set up and account and phone number
+** Build
+*** build Cringer
+#+begin_src bash
+go build
+#+end_src
+*** Move cringer to the bin folder
+**** Mac
+#+begin_src bash
+sudo mv cringer /usr/local/bin
+#+end_src
+
+**** Linux
+#+begin_src bash
+sudo mv cringer /bin
+#+end_src
+
+
+
+** Gmail
+*** Create a Password for an App
+[[https://security.google.com/settings/security/apppasswords]]
+
+*** Example
+- One email
+    #+begin_src bash
+    ./cringer email -c "docker-compose build" -t "jhon@gmail.com"  -f "jhon@gmail.com" -p "<password of app>"
+    #+end_src
+
+- More than one Phone to notify
+    #+begin_src bash
+    ./cringer email -c "docker-compose build" -t "jhon@gmail.com" -t "jhon2@gmail.com"  -f "jhon@gmail.com" -p "<password of app>"
+    #+end_src
+
+** Twilio
+*** Go to twilio and set up and account and phone number
 [[https://console.twilio.com/]]
 
-** Set env variables
+*** Set env variables
 - export TWILIO_ACCOUNT_SID=<twilio sid>
 - export TWILIO_AUTH_TOKEN=<twilio token>
 
-** Run Cringer
-#+begin_src bash
-go build
-./cringer -h
-#+end_src
-
-** Example
+*** Example
 - One phone number *free acount*
     #+begin_src bash
     ./cringer twilio -c "docker-compose build -d" -t "+<phoneNumber>" -f "+<twilioPhone>"
