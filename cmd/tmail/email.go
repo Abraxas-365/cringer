@@ -17,6 +17,7 @@ var from string
 var command string
 var to []string
 var password string
+var message string
 
 var EmailCmd = &cobra.Command{
 	Use:   "email",
@@ -42,7 +43,7 @@ var EmailCmd = &cobra.Command{
 		if err := c.Run(); err != nil {
 			email.Msg = "Subject: Error \n" + err.Error()
 		} else {
-			email.Msg = "Subject: Success \n" + stdBuffer.String()
+			email.Msg = "Subject: Success \n" + message + "\n"
 		}
 
 		log.Println(stdBuffer.String())
@@ -57,6 +58,7 @@ func init() {
 
 	EmailCmd.Flags().StringVarP(&from, "from", "f", "jhon@gmail.com", "The phone from")
 	EmailCmd.Flags().StringVarP(&command, "command", "c", "", "Command to run")
+	EmailCmd.Flags().StringVarP(&message, "message", "m", "Fucniono", "Message to send on succes")
 	EmailCmd.Flags().StringArrayVarP(&to, "to", "t", []string{"jhon@gmail.com"}, "Who to notify")
 	EmailCmd.Flags().StringVarP(&password, "password", "p", "password", "password")
 }

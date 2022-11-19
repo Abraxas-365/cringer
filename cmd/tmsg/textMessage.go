@@ -17,6 +17,7 @@ import (
 var from string
 var command string
 var to []string
+var message string
 
 var TwilioCmd = &cobra.Command{
 	Use:   "twilio",
@@ -46,7 +47,7 @@ var TwilioCmd = &cobra.Command{
 		if err := c.Run(); err != nil {
 			twilio.Msg = "Subject: Error \n" + err.Error()
 		} else {
-			twilio.Msg = "Subject: Success \n" + stdBuffer.String()
+			twilio.Msg = "Subject: Success \n" + message + "\n"
 		}
 
 		log.Println(stdBuffer.String())
@@ -64,5 +65,7 @@ var TwilioCmd = &cobra.Command{
 func init() {
 	TwilioCmd.Flags().StringVarP(&from, "from", "f", "+13023039351", "The phone from")
 	TwilioCmd.Flags().StringVarP(&command, "command", "c", "", "Command to run")
+	TwilioCmd.Flags().StringVarP(&message, "message", "m", "Fucniono", "Message to send on succes")
 	TwilioCmd.Flags().StringArrayVarP(&to, "to", "t", []string{"+<number>"}, "Who to notify")
+
 }

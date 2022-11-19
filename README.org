@@ -28,12 +28,12 @@ sudo mv cringer /bin
 *** Example
 - One email
     #+begin_src bash
-    cringer email -c "docker-compose build" -t "jhon@gmail.com"  -f "jhon@gmail.com" -p "<password of app>"
+    cringer email -c "docker-compose build" -t "jhon@gmail.com"  -f "jhon@gmail.com" -p "<password of app>" -m "Funcionoooooo"
     #+end_src
 
 - More than one Phone to notify
     #+begin_src bash
-    cringer email -c "docker-compose build" -t "jhon@gmail.com" -t "jhon2@gmail.com"  -f "jhon@gmail.com" -p "<password of app>"
+    cringer email -c "docker-compose build" -t "jhon@gmail.com" -t "jhon2@gmail.com"  -f "jhon@gmail.com" -p "<password of app>" -m "Funcionoooooo"
     #+end_src
 
 ** Twilio
