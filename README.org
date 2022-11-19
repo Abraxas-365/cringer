@@ -1,1 +1,22 @@
-# cringer
+#+TITLE: Cringer
+
+
+* How to use it
+
+** Go to twilio and set up and account and phone number
+[[https://console.twilio.com/]]
+
+** Set env variables
+- export TWILIO_ACCOUNT_SID=<twilio sid>
+- export TWILIO_AUTH_TOKEN=<twilio token>
+
+** Run Cringer
+#+begin_src bash
+go build
+./cringer -h
+#+end_src
+
+** Example
+#+begin_src bash
+./cringer -c "docker-compose build -d" -t "+<phoneNumber>" -f "+<twilioPhone>"
+#+end_src
