@@ -25,23 +25,25 @@ var rootCmd = &cobra.Command{
 		//start timer
 		start := time.Now()
 
-		//slplit the command and run it
-		commandArgs := strings.Split(command, " ")
-		c := exec.Command(commandArgs[0], commandArgs[1:]...)
-		stdout, err := c.Output()
-		if err != nil {
-			log.Fatal(err)
-			os.Exit(1)
-		}
-
 		//creating twilio provider
 		twilio := msg.Msg{
 			From: from,
 			To:   to,
 		}
 
+		//slplit the command and run it
+		commandArgs := strings.Split(command, " ")
+		c := exec.Command(commandArgs[0], commandArgs[1:]...)
+		stdout, err := c.Output()
+		if err != nil {
+			fmt.Println(err.Error())
+			twilio.Msg = "ERROR: " + err.Error()
+		} else {
+			twilio.Msg = "Exito:" + string(stdout)
+		}
+
 		//send to my phone when finish
-		if err := twilio.SendMessage(string(stdout), start); err != nil {
+		if err := twilio.SendMessage(start); err != nil {
 			log.Fatal(err)
 			os.Exit(1)
 		}
@@ -61,5 +63,5 @@ func Execute() {
 func init() {
 	rootCmd.Flags().StringVarP(&from, "from", "f", "+13023039351", "The phone from")
 	rootCmd.Flags().StringVarP(&command, "command", "c", "", "Command to run")
-	rootCmd.Flags().StringArrayVarP(&to, "to", "t", []string{"+51984266436"}, "Who to notify")
+	rootCmd.Flags().StringArrayVarP(&to, "to", "t", []string{"+<number>"}, "Who to notify")
 }

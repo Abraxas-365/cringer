@@ -8,19 +8,19 @@ import (
 	api "github.com/twilio/twilio-go/rest/api/v2010"
 )
 
-// "+13023039351"
 type Msg struct {
 	From string
 	To   []string
+	Msg  string
 }
 
-func (m *Msg) SendMessage(msg string, duration time.Time) error {
+func (m *Msg) SendMessage(duration time.Time) error {
 
 	elapsed := time.Since(duration)
 
 	client := twilio.NewRestClient()
 	params := &api.CreateMessageParams{}
-	params.SetBody(msg + " " + "Duration" + shortDur(elapsed))
+	params.SetBody(m.Msg + " " + "Duration" + shortDur(elapsed))
 	params.SetFrom(m.From)
 	for _, number := range m.To {
 		params.SetTo(number)
