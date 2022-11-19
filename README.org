@@ -19,10 +19,10 @@ go build
 ** Example
 - One phone number *free acount*
     #+begin_src bash
-    ./cringer -c "docker-compose build -d" -t "+<phoneNumber>" -f "+<twilioPhone>"
+    ./cringer twilio -c "docker-compose build -d" -t "+<phoneNumber>" -f "+<twilioPhone>"
     #+end_src
 
 - More than one Phone to notify
     #+begin_src bash
-    ./cringer -c "docker-compose build -d"  -f "+<twilioPhone>" -t "+<phoneNumber>" -t "+<phoneNumber2>" -t "+<phoneNumber3>"
+    ./cringer twilio -c "docker-compose build -d"  -f "+<twilioPhone>" -t "+<phoneNumber>" -t "+<phoneNumber2>" -t "+<phoneNumber3>"
     #+end_src
