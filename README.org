@@ -28,12 +28,12 @@ sudo mv cringer /bin
 *** Example
 - One email
     #+begin_src bash
-    ./cringer email -c "docker-compose build" -t "jhon@gmail.com"  -f "jhon@gmail.com" -p "<password of app>"
+    cringer email -c "docker-compose build" -t "jhon@gmail.com"  -f "jhon@gmail.com" -p "<password of app>"
     #+end_src
 
 - More than one Phone to notify
     #+begin_src bash
-    ./cringer email -c "docker-compose build" -t "jhon@gmail.com" -t "jhon2@gmail.com"  -f "jhon@gmail.com" -p "<password of app>"
+    cringer email -c "docker-compose build" -t "jhon@gmail.com" -t "jhon2@gmail.com"  -f "jhon@gmail.com" -p "<password of app>"
     #+end_src
 
 ** Twilio
@@ -47,10 +47,10 @@ sudo mv cringer /bin
 *** Example
 - One phone number *free acount*
     #+begin_src bash
-    ./cringer twilio -c "docker-compose build -d" -t "+<phoneNumber>" -f "+<twilioPhone>"
+    cringer twilio -c "docker-compose build -d" -t "+<phoneNumber>" -f "+<twilioPhone>"
     #+end_src
 
 - More than one Phone to notify
     #+begin_src bash
-    ./cringer twilio -c "docker-compose build -d"  -f "+<twilioPhone>" -t "+<phoneNumber>" -t "+<phoneNumber2>" -t "+<phoneNumber3>"
+    cringer twilio -c "docker-compose build -d"  -f "+<twilioPhone>" -t "+<phoneNumber>" -t "+<phoneNumber2>" -t "+<phoneNumber3>"
     #+end_src
